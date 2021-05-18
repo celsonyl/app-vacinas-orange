@@ -11,7 +11,7 @@ public class VacinaService {
     @Autowired
     private VacinaRepository vacinaRepository;
 
-    public void Insert(Vacina obj) {
+    public void insert(Vacina obj) {
         vacinaRepository.save(obj);
     }
 }

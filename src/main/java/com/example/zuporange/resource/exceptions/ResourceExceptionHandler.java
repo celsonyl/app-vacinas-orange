@@ -1,5 +1,6 @@
 package com.example.zuporange.resource.exceptions;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,6 +22,12 @@ public class ResourceExceptionHandler {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationError);
+    }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<StandardError> dataIntegrity(DataIntegrityViolationException error,HttpServletRequest request){
+        StandardError standardError = new StandardError("Cpf ou email já existente!",request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(standardError);
     }
 }
