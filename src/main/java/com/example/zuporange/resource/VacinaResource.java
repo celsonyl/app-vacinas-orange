@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/vacinas")
@@ -22,6 +24,7 @@ public class VacinaResource {
     @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
     public ResponseEntity<String> insert(@Valid @RequestBody Vacina obj) {
         vacinaService.Insert(obj);
-        return ResponseEntity.ok().body("Vacina Cadastrada com sucesso!");
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand().toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
