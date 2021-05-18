@@ -22,7 +22,7 @@ public class VacinaResource {
     private VacinaService vacinaService;
 
     @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
-    public ResponseEntity<String> insert(@Valid @RequestBody Vacina obj) {
+    public ResponseEntity<?> insert(@Valid @RequestBody Vacina obj) {
         vacinaService.Insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand().toUri();
         return ResponseEntity.created(uri).build();

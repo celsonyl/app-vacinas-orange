@@ -18,7 +18,7 @@ public class UsuarioResource {
     private UsuarioService usuarioService;
 
     @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
-    public ResponseEntity<String> insert(@Valid @RequestBody Usuario obj) {
+    public ResponseEntity<?> insert(@Valid @RequestBody Usuario obj) {
         usuarioService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
