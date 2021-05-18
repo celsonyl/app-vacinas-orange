@@ -24,7 +24,7 @@ public class Vacina implements Serializable {
     @NotNull(message = "Campo ID do usuario não pode ser nulo")
     private Usuario usuarioID;
 
-    @JsonFormat(pattern = "dd/MM/yyyy",locale = "pt-BR")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "GMT-3")
     @NotNull
     private Date dataVacina;
 

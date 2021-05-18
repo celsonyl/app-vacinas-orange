@@ -2,30 +2,26 @@ package com.example.zuporange.resource;
 
 import com.example.zuporange.domain.Usuario;
 import com.example.zuporange.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/usuarios")
 public class UsuarioResource {
 
-    private final UsuarioService usuarioService;
+    @Autowired
+    private UsuarioService usuarioService;
 
-    public UsuarioResource(UsuarioService usuarioService){
-        this.usuarioService = usuarioService;
-    }
-
-    @RequestMapping(value = "/cadastro",method = RequestMethod.POST)
-    public ResponseEntity<String> insert(@Valid @RequestBody Usuario obj){
+    @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
+    public ResponseEntity<String> insert(@Valid @RequestBody Usuario obj) {
         usuarioService.insert(obj);
-        return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Usuario> findById(@PathVariable Integer id){
-        Usuario obj = usuarioService.findById(id);
-        return ResponseEntity.ok().body(obj);
-    }
 }
