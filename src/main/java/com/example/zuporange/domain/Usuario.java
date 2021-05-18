@@ -2,11 +2,13 @@ package com.example.zuporange.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -32,6 +34,7 @@ public class Usuario implements Serializable {
     private String cpf;
 
     @NotNull(message = "Campo Data de Nascimento não pode ser nulo")
+    @Past
     @JsonFormat(pattern = "dd/MM/yyyy",timezone = "GMT-3")
     private Date dataNascimento;
 
