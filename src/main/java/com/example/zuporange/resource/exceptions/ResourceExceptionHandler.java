@@ -26,7 +26,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityViolationException error,HttpServletRequest request){
-        StandardError standardError = new StandardError("Cpf ou email já existente!",request.getRequestURI());
+        StandardError standardError = new StandardError("Email ou Cpf ja existente"+error.getMessage(),request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(standardError);
     }
